@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面未找到</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .error-code {
+            font-size: 15rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #22c1c3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(229, 46, 113, 0.5);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .error-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+        
+        .error-message {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            color: #d0d0ff;
+        }
+        
+        .astronaut {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 0 auto 40px;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .astronaut-helmet {
+            width: 150px;
+            height: 150px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset -10px -10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .helmet-glass {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 80px;
+            background: rgba(100, 200, 255, 0.3);
+            border-radius: 50%;
+            border: 3px solid rgba(200, 220, 255, 0.5);
+        }
+        
+        .astronaut-body {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: #f0f0f0;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-home {
+            background: linear-gradient(45deg, #22c1c3, #1a8bf0);
+            color: white;
+            box-shadow: 0 10px 20px rgba(26, 139, 240, 0.3);
+        }
+        
+        .btn-home:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(26, 139, 240, 0.5);
+        }
+        
+        .btn-contact {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-contact:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 40px auto;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 18px 25px;
+            padding-right: 70px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(26, 139, 240, 0.3);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .planet-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, #ff8a00, #e52e71);
+            top: 10%;
+            left: 5%;
+            box-shadow: 0 0 50px rgba(229, 46, 113, 0.5);
+        }
+        
+        .planet-2 {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #22c1c3, #1a8bf0);
+            bottom: 15%;
+            right: 8%;
+            box-shadow: 0 0 40px rgba(26, 139, 240, 0.5);
+        }
+        
+        .comet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: cometFly 15s linear infinite;
+        }
+        
+        .site-links {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .site-link {
+            color: #a0a0ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .site-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(0, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        @keyframes cometFly {
+            0% {
+                transform: translate(-100px, -100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100vw, 100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: 1rem;
+            color: #a0a0ff;
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 10rem;
+            }
+            
+            .error-title {
+                font-size: 2rem;
+            }
+            
+            .error-message {
+                font-size: 1.1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景元素 -->
+    <div class="stars" id="stars-container"></div>
+    <div class="planet planet-1"></div>
+    <div class="planet planet-2"></div>
+    
+    <!-- 主内容 -->
+    <div class="container pulse">
+        <div class="astronaut">
+            <div class="astronaut-helmet">
+                <div class="helmet-glass"></div>
+            </div>
+            <div class="astronaut-body"></div>
+        </div>
+        
+        <div class="error-code">404</div>
+        <h1 class="error-title">页面未找到</h1>
+        <p class="error-message">
+            看起来你正在尝试访问的页面已经消失在浩瀚宇宙中。可能是链接失效、页面被移除，或者你输入了错误的URL。
+        </p>
+        
+        <div class="controls">
+            <a href="/" class="btn btn-home">
+                <i class="fas fa-home"></i> 返回首页
+            </a>
+            <a href="mailto:support@example.com" class="btn btn-contact">
+                <i class="fas fa-envelope"></i> 联系我们
+            </a>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="在宇宙中搜索你想要的页面...">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <div class="site-links">
+            <a href="#" class="site-link">关于我们</a>
+            <a href="#" class="site-link">服务</a>
+            <a href="#" class="site-link">博客</a>
+            <a href="#" class="site-link">帮助中心</a>
+            <a href="#" class="site-link">站点地图</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 太空探索有限公司 | 迷失在太空中的页面</p>
+        </div>
+    </div>
+
+    <script>
+        // 创建星空背景
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+        
+        // 创建彗星
+        function createComet() {
+            const comet = document.createElement('div');
+            comet.classList.add('comet');
+            comet.style.left = `${-100 + Math.random() * 50}px`;
+            comet.style.top = `${-100 + Math.random() * 50}px`;
+            comet.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            document.body.appendChild(comet);
+            
+            // 彗星动画结束后移除
+            setTimeout(() => {
+                comet.remove();
+            }, 20000);
+        }
+        
+        // 每5秒创建一个新彗星
+        setInterval(createComet, 5000);
+        createComet();
+        
+        // 搜索功能
+        const searchBtn = document.querySelector('.search-btn');
+        const searchBox = document.querySelector('.search-box');
+        
+        searchBtn.addEventListener('click', () => {
+            if (searchBox.value.trim() !== '') {
+                alert(`正在搜索: "${searchBox.value}"\n很抱歉，由于这是404页面演示，搜索功能无法使用`);
+                searchBox.value = '';
+            } else {
+                searchBox.focus();
+            }
+        });
+        
+        searchBox.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
